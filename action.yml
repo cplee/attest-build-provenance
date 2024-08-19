@@ -41,6 +41,10 @@ inputs:
       The GitHub token used to make authenticated API requests.
     default: ${{ github.token }}
     required: false
+  rekor-url:
+    description: >
+      The Rekor URL to use for privage instances.
+    required: false
 
 outputs:
   bundle-path:
@@ -62,4 +66,5 @@ runs:
         predicate: ${{ steps.generate-build-provenance-predicate.outputs.predicate }}
         push-to-registry: ${{ inputs.push-to-registry }}
         show-summary: ${{ inputs.show-summary }}
+        rekor-url: ${{ inputs.rekor-url}}
         github-token: ${{ inputs.github-token }}

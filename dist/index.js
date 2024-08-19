@@ -25139,6 +25139,9 @@ function attest(options) {
             type: INTOTO_PAYLOAD_TYPE
         };
         const endpoints = (0, endpoints_1.signingEndpoints)(options.sigstore);
+        if (options.rekorURL) {
+            endpoints.rekorURL = options.rekorURL;
+        }
         const bundle = yield (0, sign_1.signPayload)(payload, endpoints);
         // Store the attestation
         let attestationID;
@@ -25230,12 +25233,6 @@ const signingEndpoints = (sigstore) => {
             ((_a = github.context.payload.repository) === null || _a === void 0 ? void 0 : _a.visibility) === 'public'
                 ? PUBLIC_GOOD_ID
                 : GITHUB_ID;
-    }
-    if (process.env.REKOR_REKOR_SERVER) {
-        return {
-            rekorURL: process.env.REKOR_REKOR_SERVER,
-            fulcioURL: "",
-        };
     }
     switch (instance) {
         case PUBLIC_GOOD_ID:
